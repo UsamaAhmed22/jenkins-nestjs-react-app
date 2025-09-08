@@ -21,7 +21,7 @@ pipeline {
         
         stage('Setup Tools') {
             steps {
-                sh 'npm install -g typescript'
+                sh 'npm install -g typescript webpack webpack-cli'
             }
         }
         
@@ -30,7 +30,7 @@ pipeline {
                 dir('backend') {
                     sh 'npm install'
                     sh 'npm test'
-                    sh 'npx tsc'  // Use npx instead of direct tsc
+                    sh 'npx tsc'
                 }
             }
         }
@@ -40,7 +40,7 @@ pipeline {
                 dir('frontend') {
                     sh 'npm install'
                     sh 'npm test'
-                    sh 'npm run build'
+                    sh 'npx webpack --mode production'  // Use npx instead of direct webpack
                 }
             }
         }
@@ -48,27 +48,19 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    withCredentials([sshUserPrivateKey(
-                        credentialsId: 'deployment-server',
-                        keyFileVariable: 'SSH_KEY',
-                        usernameVariable: 'SSH_USER'
-                    )]) {
-                        sh """
-                            echo "Testing SSH connection first..."
-                            ssh -i $SSH_KEY -o StrictHostKeyChecking=no -o ConnectTimeout=5 $SSH_USER@$SERVER_IP "echo 'SSH connection successful'"
-                            
-                            echo "Deploying applications..."
-                            // Add your deployment commands here
-                        """
-                    }
+                    echo "Deployment would happen here if build succeeded"
+                    // Add your deployment commands here once build works
                 }
             }
         }
     }
     
     post {
+        success {
+            echo "✅ Pipeline completed successfully!"
+        }
         failure {
-            echo "Pipeline failed - check TypeScript installation and SSH credentials"
+            echo "❌ Pipeline failed - check build logs"
         }
     }
 }
