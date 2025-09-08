@@ -2,9 +2,8 @@
   "name": "frontend",
   "version": "1.0.0",
   "scripts": {
-    "build": "webpack --mode production",
-    "start": "webpack serve --mode development",
-    "test": "echo \"No tests specified\" && exit 0"
+    "build": "npx webpack --mode production",
+    "build": "./node_modules/.bin/webpack --mode production"
   },
   "dependencies": {
     "react": "^18.2.0",
