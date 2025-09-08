@@ -5,17 +5,17 @@ pipeline {
     }
     
     environment {
-        SERVER_IP = 'your-server-ip' // Change this to your server IP
-        DEPLOY_USER = 'deploy-user'   // Change this to your deploy user
-        BACKEND_DIR = '/var/www/backend'
-        FRONTEND_DIR = '/var/www/frontend'
-        BACKUP_DIR = '/var/backups/deployments'
-    }
+    SERVER_IP = '172.27.3.80'  // Your actual server IP
+    DEPLOY_USER = 'deploy-user'
+    BACKEND_DIR = '/var/www/backend'
+    FRONTEND_DIR = '/var/www/frontend'
+    BACKUP_DIR = '/var/backups/deployments'
+}
     
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-username/your-repo.git' // Update with your repo
+                git branch: 'main', url: 'https://github.com/UsamaAhmed22/jenkins-nestjs-react-app.git' // Update with your repo
             }
         }
         
