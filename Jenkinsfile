@@ -15,9 +15,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'git@github.com:UsamaAhmed22/jenkins-nestjs-react-app.git'
-            }
-        }
+                git branch: 'main', url: 'https://github.com/UsamaAhmed22/jenkins-nestjs-react-app.git'
+    }
+}
         
         stage('Setup Tools') {
             steps {
